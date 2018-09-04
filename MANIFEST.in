@@ -1,0 +1,2 @@
+graft cffapp/templates
+graft cffapp/static

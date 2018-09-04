@@ -1,0 +1,1 @@
+from .cffapp import app

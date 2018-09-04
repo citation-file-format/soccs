@@ -1,0 +1,40 @@
+{% extends "layout.html" %}
+{% block body %}
+    <form action="{{ url_for('get_url') }}" method=post class=add-entry>
+      <dl>
+        <dd><i class="fa fa-github"></i> GitHub URL: <input type=text size=80% name=githuburl> &#160; <input type=submit value='Get GitHub metadata'>
+        <dd><i class="fa fa-git"></i> GitLab URL: <input type=text size=80% name=githuburl> &#160; <input type=submit value='Get GitLab metadata'>
+        <dd><i class="fa fa-bitbucket"></i> Bitbucket URL: <input type=text size=80% name=githuburl> &#160; <input type=submit value='Get Bitbucket metadata'>
+        <dd><i class="fa fa-gear"></i> Zenodo URL: <input type=text size=80% name=githuburl> &#160; <input type=submit value='Get Zenodo metadata'>
+      </dl>
+    </form>
+    <form action="{{ url_for('add_entry') }}" method=post class=add-entry>
+      <dl>
+        <dt><i class="fa fa-bullhorn"></i> Message:
+        <dd><input type=text size=80% name=message value='{{ cff.message }}'>
+        <dt><i class="fa fa-pencil"></i> Authors:<dd>
+          {% for author in cff.authors %}
+            {% if author.name != null %}
+              <dt><i class="fa fa-building"></i> Entity author:
+              <dd><input type=text size=80% name=entity_author value='{{ author.name }}'>
+            {% elif author.family_names != null %}
+              <dt><i class="fa fa-user"></i> Person author:
+              <dd>Family names: <input type=text size=80% name=author_fn value='{{ author.family_names }}'>
+              <dd>Given names: <input type=text size=80% name=author_gn value='{{ author.given_names }}'>
+            {% endif %}
+          {% endfor %}
+        <dt><i class="fa fa-lightbulb-o"></i> Title:
+        <dd><input type=text size=80% name=title value='{{ cff.title }}'>
+        <dt><i class="fa fa-gift"></i> Version:
+        <dd><input type=text size=80% name=version value='{{ cff.version }}'>
+        <dt><i class="fa fa-calendar"></i> Release date:
+        <dd><input type=text size=80% name=date_released value='{{ cff.date_released }}'>
+        <dt><i class="fa fa-code"></i> Code repo:
+        <dd><input type=text size=80% name=repository_code value='{{ cff.repository_code }}'>
+        <dt><i class="fa fa-hand-o-right"></i> Commit:
+        <dd><input type=text size=80% name=commit value='{{ cff.commit }}'>
+        <dd><input type=submit value='Create CFF file'>
+        <dd><input type=submit value='Create CodeMeta file'>
+      </dl>
+    </form>
+{% endblock %}
